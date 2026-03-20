@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule a Meeting - Kile Construction</title>
+  <meta name="description" content="Schedule a meeting with Kile Construction for your remodeling or construction project in Coeur d'Alene, Idaho.">
+  <link rel="icon" href="assets/images/favicon.png" sizes="32x32">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo"><a href="index.html"><img src="assets/images/logo.png" alt="N.L. Kile Construction LLC"></a></div>
+      <button class="hamburger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+      <div class="nav-overlay"></div>
+      <div class="nav-desktop-wrap">
+        <ul class="nav-desktop">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a><ul class="sub-menu"><li><a href="about.html">Our Team</a></li><li><a href="testimonials.html">Testimonials</a></li></ul></li>
+          <li><a href="#">Services</a><ul class="sub-menu"><li><a href="home-renovations.html">Home Renovations</a></li><li><a href="exterior-remodeling.html">Exterior Remodeling</a></li><li><a href="bathroom-remodeling.html">Bathroom Remodeling</a></li><li><a href="kitchen-remodeling.html">Kitchen Remodeling</a></li><li><a href="basement-remodeling.html">Basement Remodeling</a></li><li><a href="home-additions.html">Home Additions</a></li><li><a href="handyman-services.html">Handyman Services</a></li><li><a href="tile-installation.html">Tile Installation</a></li><li><a href="doors-windows-trim.html">Doors, Windows &amp; Trim</a></li><li><a href="security-cameras.html">Security Cameras &amp; Networking</a></li></ul></li>
+          <li><a href="photo-gallery.html">Photo Gallery</a></li>
+          <li class="nav-cta current"><a href="schedule-meeting.html">Request a Meeting</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero hero-inner">
+    <div class="hero-bg" style="background-image:url('assets/images/hero-kitchen.jpg');"></div>
+    <div class="hero-content">
+      <h1><em>Schedule a Meeting</em></h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="schedule-wrap">
+
+        <div class="notice-box">
+          <h2>Important Notice</h2>
+          <p>Due to high demand, we are currently only able to take on projects of $15,000 and above. If you have a project under $15,000 we would still love to hear from you, but please be patient as it may take some time to get back to you. We apologize for any inconvenience. Thank you.</p>
+        </div>
+
+        <h2 class="form-title">Project Intake Form</h2>
+        <form id="intakeForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" required placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" required placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone <span class="req">*</span></label>
+              <input type="tel" required placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" required placeholder="Email Address">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Address <span class="req">*</span></label>
+            <input type="text" required placeholder="Street Address">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>City <span class="req">*</span></label>
+              <input type="text" required placeholder="City">
+            </div>
+            <div class="form-group">
+              <label>State <span class="req">*</span></label>
+              <input type="text" required placeholder="State">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Zip Code <span class="req">*</span></label>
+            <input type="text" required placeholder="Zip Code">
+          </div>
+
+          <div class="form-group">
+            <label>What services are you interested in? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label><input type="radio" name="service" value="Kitchen Remodeling"> Kitchen Remodeling</label>
+              <label><input type="radio" name="service" value="Bathroom Remodeling"> Bathroom Remodeling</label>
+              <label><input type="radio" name="service" value="Basement Remodeling"> Basement Remodeling</label>
+              <label><input type="radio" name="service" value="Exterior Remodeling"> Exterior Remodeling</label>
+              <label><input type="radio" name="service" value="Home Renovations"> Home Renovations</label>
+              <label><input type="radio" name="service" value="Home Additions"> Home Additions</label>
+              <label><input type="radio" name="service" value="Other"> Other</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Tell Us About Your Project <span class="req">*</span></label>
+            <textarea required placeholder="Please describe your project, including any details that would help us understand your needs."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Upload Photos &amp; Blueprints</label>
+            <div class="file-upload" onclick="document.getElementById('fileUpload').click();">
+              <input type="file" id="fileUpload" multiple accept="image/*,.pdf">
+              <p id="fileLabel">Click to upload photos and blueprints (Max 100 MB)</p>
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-gold">Submit</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-bar">
+    <div class="container inner">
+      <div class="contact-info">
+        <div class="contact-info-item"><div class="ci-icon">&#9742;</div><a href="tel:+12084948818">(208) 494-8818</a></div>
+        <div class="contact-info-item"><div class="ci-icon">&#9993;</div><span>1864 E Hanley Ave, Dalton Gardens, ID 83815</span></div>
+      </div>
+      <div class="contact-btns">
+        <a href="tel:+12084948818" class="btn btn-gold">(208) 494-8818</a>
+        <a href="schedule-meeting.html" class="btn btn-white-outline">Schedule a Meeting</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h4>Contractor License #s</h4><p>Idaho: RCE – 34546</p><p>Washington: – CC NLKILKC815OZ</p></div>
+        <div class="footer-col"><h4>Remodeling</h4><ul><li><a href="kitchen-remodeling.html">Kitchen Remodeling</a></li><li><a href="bathroom-remodeling.html">Bathroom Remodeling</a></li><li><a href="exterior-remodeling.html">Exterior Remodeling</a></li><li><a href="basement-remodeling.html">Basement Remodeling</a></li></ul></div>
+        <div class="footer-col"><h4>Other Services</h4><ul><li><a href="home-additions.html">Home Additions</a></li><li><a href="handyman-services.html">Handyman Services</a></li><li><a href="tile-installation.html">Tile Installation</a></li><li><a href="doors-windows-trim.html">Doors, Windows &amp; Trim</a></li><li><a href="security-cameras.html">Security Cameras</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+12084948818">(208) 494-8818</a></li><li><a href="https://www.google.com/maps/place/Nl+Kile+Construction+Remodeling+Contractor/@47.7294727,-116.7611116,15z/" target="_blank" rel="noopener">1864 E Hanley Ave, Dalton Gardens, ID 83815</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>Marketing by <a href="https://adaptdigitalsolutions.com/" target="_blank" rel="noopener">Adapt Digital Solutions</a> &nbsp;|&nbsp; Proud sponsor of <a href="https://www.groundwaterworld.org" target="_blank" rel="noopener">Groundwaterworld.org</a></p></div>
+    </div>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
