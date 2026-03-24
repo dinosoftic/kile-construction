@@ -1,8 +1,25 @@
 /* ============================================
-   KILE CONSTRUCTION — Main JS
+   KILE CONSTRUCTION — 2026 Modern JS
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+
+  /* ---- Header scroll effect ---- */
+  const header = document.querySelector('.site-header');
+  let lastScroll = 0;
+  if (header) {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScroll = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 
   /* ---- Mobile Navigation ---- */
   const hamburger = document.querySelector('.hamburger');
@@ -42,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ---- Scroll animations (fade-up) ---- */
-  const fadeEls = document.querySelectorAll('.fade-up');
-  if (fadeEls.length) {
+  /* ---- Scroll animations (IntersectionObserver) ---- */
+  const animateEls = document.querySelectorAll('.fade-up, .reveal-card');
+  if (animateEls.length) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -52,8 +69,22 @@ document.addEventListener('DOMContentLoaded', () => {
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
-    fadeEls.forEach(el => observer.observe(el));
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    animateEls.forEach(el => observer.observe(el));
+  }
+
+  /* ---- Parallax hero background ---- */
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    const heroSection = heroBg.closest('.hero');
+    const onHeroScroll = () => {
+      const rect = heroSection.getBoundingClientRect();
+      if (rect.bottom > 0) {
+        const scrolled = -rect.top;
+        heroBg.style.transform = `translateY(${scrolled * 0.25}px) scale(1.05)`;
+      }
+    };
+    window.addEventListener('scroll', onHeroScroll, { passive: true });
   }
 
   /* ---- Gallery Carousel (homepage) ---- */
@@ -86,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function resetAutoplay() {
       clearInterval(autoplayTimer);
-      autoplayTimer = setInterval(nextSlide, 4000);
+      autoplayTimer = setInterval(nextSlide, 5000);
     }
 
     resetAutoplay();
@@ -132,10 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
       let valid = true;
       required.forEach(field => {
         if (!field.value.trim()) {
-          field.style.borderColor = '#e74c3c';
+          field.style.borderColor = '#C17F59';
+          field.style.boxShadow = '0 0 0 4px rgba(193,127,89,0.15)';
           valid = false;
         } else {
           field.style.borderColor = '';
+          field.style.boxShadow = '';
         }
       });
       if (valid) {
@@ -157,4 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  /* ---- Staggered card animations ---- */
+  const svcCards = document.querySelectorAll('.svc-card');
+  svcCards.forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.08}s`;
+  });
+
 });
