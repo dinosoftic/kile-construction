@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---- Scroll animations (IntersectionObserver) ---- */
-  const animateEls = document.querySelectorAll('.fade-up, .reveal-card');
+  const animateEls = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .reveal-card, .scale-in');
   if (animateEls.length) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -196,5 +196,38 @@ document.addEventListener('DOMContentLoaded', () => {
   svcCards.forEach((card, i) => {
     card.style.transitionDelay = `${i * 0.08}s`;
   });
+
+  /* ---- Counter animation for stats ---- */
+  const statNums = document.querySelectorAll('.stat-num');
+  if (statNums.length) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const text = el.textContent.trim();
+          const match = text.match(/^([\d.]+)(.*)$/);
+          if (match) {
+            const target = parseFloat(match[1]);
+            const suffix = match[2];
+            const isDecimal = text.includes('.');
+            const duration = 1500;
+            const start = performance.now();
+
+            function animate(now) {
+              const elapsed = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = target * eased;
+              el.textContent = (isDecimal ? current.toFixed(1) : Math.round(current)) + suffix;
+              if (progress < 1) requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+          }
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    statNums.forEach(el => counterObserver.observe(el));
+  }
 
 });
