@@ -155,16 +155,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---- Contact form validation ---- */
-  const form = document.getElementById('intakeForm');
-  if (form) {
+  const forms = document.querySelectorAll('#intakeForm, #contactForm');
+  forms.forEach(form => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const required = form.querySelectorAll('[required]');
       let valid = true;
       required.forEach(field => {
         if (!field.value.trim()) {
-          field.style.borderColor = '#C17F59';
-          field.style.boxShadow = '0 0 0 4px rgba(193,127,89,0.15)';
+          field.style.borderColor = '#B87347';
+          field.style.boxShadow = '0 0 0 3px rgba(184,115,71,0.15)';
           valid = false;
         } else {
           field.style.borderColor = '';
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         form.reset();
       }
     });
-  }
+  });
 
   /* ---- File upload label ---- */
   const fileInput = document.getElementById('fileUpload');
