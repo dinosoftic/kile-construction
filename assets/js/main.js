@@ -183,8 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function submitAdaptForm(form) {
     const honey = form.querySelector('input[name="_honey"]');
     if (honey && honey.value) {
-      showFormMessage(form, 'success', 'Thank you! We\'ll be in touch soon.');
-      form.reset();
+      window.location.href = 'thank-you.html';
       return;
     }
 
@@ -219,14 +218,14 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(res => res.json())
       .then(result => {
         if (result.success) {
-          showFormMessage(form, 'success', 'Thank you! We\'ll be in touch within one business day.');
-          form.reset();
+          window.location.href = 'thank-you.html';
         } else {
           showFormMessage(form, 'error', result.error || 'Something went wrong. Please try again.');
+          if (btn) { btn.textContent = originalText; btn.disabled = false; }
         }
       })
-      .catch(() => showFormMessage(form, 'error', 'Network error. Please try again.'))
-      .finally(() => {
+      .catch(() => {
+        showFormMessage(form, 'error', 'Network error. Please try again.');
         if (btn) { btn.textContent = originalText; btn.disabled = false; }
       });
   }
