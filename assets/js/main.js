@@ -154,42 +154,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---- Contact form validation ---- */
-  const forms = document.querySelectorAll('#intakeForm, #contactForm');
-  forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const required = form.querySelectorAll('[required]');
-      let valid = true;
-      required.forEach(field => {
-        if (!field.value.trim()) {
-          field.style.borderColor = '#B87347';
-          field.style.boxShadow = '0 0 0 3px rgba(184,115,71,0.15)';
-          valid = false;
+  /* ---- Contact form submission (Cloudflare Worker form-relay) ---- */
+  const WORKER_URL = 'https://form-relay.chuck-84d.workers.dev';
+
+  function showFormMessage(form, type, message) {
+    const existing = form.parentNode.querySelector('.form-message');
+    if (existing) existing.remove();
+    const div = document.createElement('div');
+    div.className = 'form-message form-message--' + type;
+    div.textContent = message;
+    div.style.padding = '12px 16px';
+    div.style.marginTop = '16px';
+    div.style.borderRadius = '6px';
+    div.style.fontWeight = '500';
+    if (type === 'success') {
+      div.style.background = '#d4edda';
+      div.style.color = '#155724';
+      div.style.border = '1px solid #c3e6cb';
+    } else {
+      div.style.background = '#f8d7da';
+      div.style.color = '#721c24';
+      div.style.border = '1px solid #f5c6cb';
+    }
+    form.parentNode.insertBefore(div, form.nextSibling);
+    setTimeout(() => div.remove(), 8000);
+  }
+
+  function submitAdaptForm(form) {
+    const honey = form.querySelector('input[name="_honey"]');
+    if (honey && honey.value) {
+      showFormMessage(form, 'success', 'Thank you! We\'ll be in touch soon.');
+      form.reset();
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"], input[type="submit"]');
+    const originalText = btn ? btn.textContent : '';
+
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      if (key !== '_honey') data[key] = value;
+    });
+    data._page = window.location.pathname;
+
+    const errors = [];
+    if (!data.first_name || !data.first_name.trim()) errors.push('First name is required');
+    if (!data.last_name || !data.last_name.trim()) errors.push('Last name is required');
+    if (!data.phone || !data.phone.trim()) errors.push('Phone number is required');
+    if (!data.email || !data.email.trim()) errors.push('Email is required');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) errors.push('Please enter a valid email address');
+
+    if (errors.length > 0) {
+      showFormMessage(form, 'error', errors.join('. '));
+      return;
+    }
+
+    if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+
+    fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result.success) {
+          showFormMessage(form, 'success', 'Thank you! We\'ll be in touch within one business day.');
+          form.reset();
         } else {
-          field.style.borderColor = '';
-          field.style.boxShadow = '';
+          showFormMessage(form, 'error', result.error || 'Something went wrong. Please try again.');
         }
+      })
+      .catch(() => showFormMessage(form, 'error', 'Network error. Please try again.'))
+      .finally(() => {
+        if (btn) { btn.textContent = originalText; btn.disabled = false; }
       });
-      if (valid) {
-        alert('Thank you for your submission! We will be in touch soon.');
-        form.reset();
-      }
+  }
+
+  document.querySelectorAll('#intakeForm, #contactForm').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      submitAdaptForm(form);
     });
   });
-
-  /* ---- File upload label ---- */
-  const fileInput = document.getElementById('fileUpload');
-  const fileLabel = document.getElementById('fileLabel');
-  if (fileInput && fileLabel) {
-    fileInput.addEventListener('change', () => {
-      if (fileInput.files.length) {
-        fileLabel.textContent = Array.from(fileInput.files).map(f => f.name).join(', ');
-      } else {
-        fileLabel.textContent = 'Click to upload photos and blueprints (Max 100 MB)';
-      }
-    });
-  }
 
   /* ---- Staggered card animations ---- */
   const svcCards = document.querySelectorAll('.svc-card');
