@@ -1800,6 +1800,99 @@ em, i { font-style: normal; }
 }
 
 /* ============================================
+   CONTACT CTA PANEL — replaces inline form on
+   non-contact pages, points to /schedule-meeting
+   ============================================ */
+.cf-cta-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 44px;
+  position: relative;
+  overflow: hidden;
+}
+.cf-cta-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--copper), var(--copper-light));
+}
+.cf-cta-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--copper);
+  text-transform: uppercase;
+  letter-spacing: 2.4px;
+  padding: 6px 14px;
+  background: rgba(184,115,71,0.08);
+  border-radius: 999px;
+  margin-bottom: 18px;
+}
+.cf-cta-panel h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+.cf-cta-lead {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-light);
+  max-width: 380px;
+  margin-bottom: 28px;
+}
+.cf-cta-btn {
+  width: 100%;
+  max-width: 320px;
+  justify-content: center;
+}
+.cf-cta-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 260px;
+  margin: 22px 0 18px;
+  color: var(--text-light);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.cf-cta-divider::before,
+.cf-cta-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.cf-cta-divider span { padding: 0 14px; }
+.cf-cta-phone {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.cf-cta-phone:hover { color: var(--copper); }
+.cf-cta-foot {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-light);
+  margin-top: 10px;
+  max-width: 320px;
+}
+@media (max-width: 900px) {
+  .cf-cta-panel { padding: 40px 26px; }
+  .cf-cta-panel h3 { font-size: 22px; }
+}
+
+/* ============================================
    SERVICE PAGE — Process steps
    ============================================ */
 .process-grid {
